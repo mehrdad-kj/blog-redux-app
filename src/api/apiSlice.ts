@@ -2,25 +2,35 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://jsonplaceholder.ir" }),
-  endpoints: (builder) => ({}),
-});
-
-export const fakeApi = apiSlice.injectEndpoints({
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:3000",
+  }),
   endpoints: (builder) => ({
-    getFakeApiByPosts: builder.query({
-      query: () => "posts"
+    getTodos: builder.query({
+      query: () => "todos",
+    }),
+    addTodo: builder.mutation({
+      query: (initialTodo) => ({
+        url: "/todos",
+        method: "POST",
+        body: initialTodo,
+      }),
+    }),
+    deleteTodo: builder.mutation({
+      query: (id) => ({
+        url: `todos/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    updateTodo: builder.mutation({
+      query: ({id, title}) =>({
+        url: `todos/${id}`,
+        method: "PUT",
+        body: {title},
+      }),
     }),
   }),
 });
 
-export const usersApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
-    getUsersApiByUsers: builder.query({
-      query: () => "users",
-    }),
-  }),
-});
-
-export const { useGetFakeApiByPostsQuery } = fakeApi;
-export const { useGetUsersApiByUsersQuery } = usersApi;
+export const { useGetTodosQuery, useAddTodoMutation, useDeleteTodoMutation, useUpdateTodoMutation } =
+  apiSlice;

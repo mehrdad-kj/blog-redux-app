@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "title": "go gym",
+      "id": 12
+    },
+    {
+      "title": "learn RTK Query",
+      "id": 15
+    },
+    {
+      "title": "learn redux",
+      "id": 16
+    }
+  ]
+}
