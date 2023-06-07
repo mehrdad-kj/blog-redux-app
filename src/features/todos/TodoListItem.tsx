@@ -1,20 +1,14 @@
-import {
-  useDeleteTodoMutation,
-  useGetTodosQuery,
-} from "../../api/apiSlice";
+import { useDeleteTodoMutation } from "../../api/apiSlice";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { FaPen } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const TodoListItem = ({ todo }) => {
   const [deleteTodo] = useDeleteTodoMutation();
-  const { refetch } = useGetTodosQuery();
 
   const handleDeleteTodo = async (id) => {
     try {
-      const response = await deleteTodo(id).unwrap();
-      console.log(response);
-      refetch();
+      await deleteTodo(id);
     } catch (err) {
       console.log(err);
     }

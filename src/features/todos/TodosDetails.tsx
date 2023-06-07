@@ -9,16 +9,14 @@ const TodosDetails = () => {
   const { id: todoId } = useParams();
 
   const [updateTodo] = useUpdateTodoMutation();
-  const { data: todos, refetch } = useGetTodosQuery();
+  const { data: todos } = useGetTodosQuery();
 
   const handleUpdateTodo = async () => {
     try {
-      const response = await updateTodo({
+       await updateTodo({
         id: todoId,
         title: todoValue,
-      }).unwrap();
-      console.log(response);
-      refetch();
+      })
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -27,8 +25,8 @@ const TodosDetails = () => {
 
   useEffect(() => {
     const oldValue = todos?.find((todo) => todo.id === Number(todoId));
-    setTodoValue(oldValue.title);
-  }, []);
+    setTodoValue(oldValue?.title);
+  }, [todoId, todos]);
 
   return (
     <div className="flex flex-col w-96 mx-auto my-20">

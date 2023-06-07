@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAddTodoMutation, useGetTodosQuery } from "../../api/apiSlice";
 import TodoListItem from "./TodoListItem";
 
 const AddTodo = () => {
   const [todoValue, setTodoValue] = useState("");
-  const { data: todos, refetch  } = useGetTodosQuery();
+  const { data: todos, isLoading } = useGetTodosQuery();
   const [AddTodo] = useAddTodoMutation();
 
   const canAdd = todoValue.trim() !== "";
@@ -13,10 +13,8 @@ const AddTodo = () => {
     e.preventDefault();
     if (canAdd) {
       try {
-        const response = await AddTodo({ title: todoValue }).unwrap();
-        console.log(response);
+        await AddTodo({ title: todoValue });
         setTodoValue("");
-        refetch()
       } catch (err) {
         console.log(err);
       }
@@ -40,10 +38,12 @@ const AddTodo = () => {
           Add Todo
         </button>
       </form>
-      {todos && todos.length > 0 ? (
+      {isLoading ? (
+        <p>Loading ... </p>
+      ) : todos && todos.length > 0 ? (
         todos.map((todo) => <TodoListItem todo={todo} key={todo.id} />)
       ) : (
-        <div>No todos found.</div>
+        <div>No todos found...</div>
       )}
     </>
   );
