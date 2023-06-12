@@ -2,11 +2,16 @@ import { useDeleteTodoMutation } from "../../api/apiSlice";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { FaPen } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { TodoType } from "../../types/types";
 
-const TodoListItem = ({ todo }) => {
+interface TodoListItemProps {
+  todo: TodoType;
+}
+
+const TodoListItem = ({ todo }: TodoListItemProps) => {
   const [deleteTodo] = useDeleteTodoMutation();
 
-  const handleDeleteTodo = async (id) => {
+  const handleDeleteTodo = async (id: number) => {
     try {
       await deleteTodo(id);
     } catch (err) {

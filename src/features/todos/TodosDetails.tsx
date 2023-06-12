@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetTodosQuery, useUpdateTodoMutation } from "../../api/apiSlice";
+import { TodoType } from "../../types/types";
+
+
+interface TodosType {
+  data: TodoType[]
+}
 
 const TodosDetails = () => {
-  const [todoValue, setTodoValue] = useState();
+  const [todoValue, setTodoValue] = useState<string>();
 
   const navigate = useNavigate();
   const { id: todoId } = useParams();
 
   const [updateTodo] = useUpdateTodoMutation();
-  const { data: todos } = useGetTodosQuery();
+  const { data: todos } = useGetTodosQuery<TodosType>("TODOS");
 
   const handleUpdateTodo = async () => {
     try {
@@ -24,7 +30,7 @@ const TodosDetails = () => {
   };
 
   useEffect(() => {
-    const oldValue = todos?.find((todo) => todo.id === Number(todoId));
+    const oldValue : TodoType | undefined = todos?.find((todo) => todo.id === Number(todoId));
     setTodoValue(oldValue?.title);
   }, [todoId, todos]);
 
