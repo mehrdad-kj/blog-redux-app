@@ -1,6 +1,6 @@
 # Todo App
 
-This is a simple Todo App built with React, TypeScript, and an API integration using Redux Toolkit and RTK Query.
+This is a simple Todo App built with React, TypeScript, and an API integration using Redux Toolkit and RTK Query. I used react hook form for validation and mui for modal.
 
 ## Features
 
@@ -33,8 +33,11 @@ React
 TypeScript
 React Router
 Redux Toolkit
-React Query
+RTK Query
+React hook form
 Json-Server
+mui
+tailwind
 
 
 ## API Integration
