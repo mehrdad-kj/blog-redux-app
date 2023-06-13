@@ -9,6 +9,7 @@ interface TodoListItemProps {
 }
 
 const TodoListItem = ({ todo }: TodoListItemProps) => {
+
   const [deleteTodo] = useDeleteTodoMutation();
 
   const handleDeleteTodo = async (id: number) => {
@@ -21,7 +22,8 @@ const TodoListItem = ({ todo }: TodoListItemProps) => {
 
   return (
     <div className="flex  justify-between items-center p-5 text-center w-96 mx-auto my-2 text-lg font-semibold border-blue-400 border">
-      <p>{todo.title}</p>
+      <div>{todo.title}</div>
+      <span>{todo.importance}</span>
       <div className="flex gap-3">
         <Link to={`todos/${todo.id}`}>
           <FaPen />

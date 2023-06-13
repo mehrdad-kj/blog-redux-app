@@ -9,7 +9,9 @@ interface TodosType {
 }
 
 const TodosDetails = () => {
-  const [todoValue, setTodoValue] = useState<string>();
+  const [todoInputValue, setTodoInputValue] = useState<string>();
+  const [todoSelectValue, setTodoSelectValue] = useState<string>();
+
 
   const navigate = useNavigate();
   const { id: todoId } = useParams();
@@ -21,9 +23,10 @@ const TodosDetails = () => {
     try {
        await updateTodo({
         id: todoId,
-        title: todoValue,
+        title: todoInputValue,
+        importance: todoSelectValue,
       })
-      navigate("/");
+      navigate("/simple-redux-app");
     } catch (err) {
       console.log(err);
     }
@@ -31,7 +34,7 @@ const TodosDetails = () => {
 
   useEffect(() => {
     const oldValue : TodoType | undefined = todos?.find((todo) => todo.id === Number(todoId));
-    setTodoValue(oldValue?.title);
+    setTodoInputValue(oldValue?.title);
   }, [todoId, todos]);
 
   return (
@@ -39,9 +42,20 @@ const TodosDetails = () => {
       <input
         className="my-2 border-2 border-sky-600 p-2 rounded"
         type="text"
-        value={todoValue}
-        onChange={(e) => setTodoValue(e.target.value)}
+        value={todoInputValue}
+        onChange={(e) => setTodoInputValue(e.target.value)}
       />
+       <select
+        className="w-full my-2 border-2 border-sky-600 p-2 rounded"
+        name="todoLevel"
+        id="todoLevel"
+        value={todoSelectValue}
+        onChange={(e) => setTodoSelectValue(e.target.value)}
+      >
+        <option value="Important">Important</option>
+        <option value="Emergency">Emergency</option>
+        <option value="Later">Later</option>
+      </select>
       <div className="flex gap-2">
         <button
           className="w-[50%] my-2 border bg-green-700 p-5 text-white font-extrabold"
@@ -51,7 +65,7 @@ const TodosDetails = () => {
         </button>
         <button
           className="w-[50%] my-2 border bg-red-600 p-5 text-white font-extrabold"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/simple-redux-app")}
         >
           Back
         </button>
