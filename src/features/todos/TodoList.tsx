@@ -4,13 +4,17 @@ import TodoListItem from "./TodoListItem";
 import { TodoType } from "../../types/types";
 
 interface TodosType {
-  data: TodoType[],
-  isLoading: boolean,
-  isError: boolean
+  data: TodoType[];
+  isLoading: boolean;
+  isError: boolean;
 }
 
 const TodoList = () => {
-  const { data: todos, isLoading, isError } = useGetTodosQuery<TodosType>("TODOS");
+  const {
+    data: todos,
+    isLoading,
+    isError,
+  } = useGetTodosQuery<TodosType>("TODOS");
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -31,6 +35,9 @@ const TodoList = () => {
       ) : (
         <div>No todos found...</div>
       )}
+      {/* <div style={{ backgroundColor: env.REACT_APP_COLOR }}>
+        <span>{env.REACT_APP_MAIN_TEXT}</span>
+      </div> */}
     </div>
   );
 };

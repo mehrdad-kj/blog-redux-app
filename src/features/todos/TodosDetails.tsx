@@ -12,6 +12,7 @@ interface TodosType {
 
 const TodosDetails = () => {
   const [oldInputValue, setOldInputValue] = useState<string>();
+  console.log(oldInputValue)
   const navigate = useNavigate();
   const { id: todoId } = useParams();
 
